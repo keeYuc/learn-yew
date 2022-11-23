@@ -1,3 +1,5 @@
+use day_2::App;
+
 fn main() {
-    println!("Hello, world!");
+    yew::start_app::<App>();
 }
