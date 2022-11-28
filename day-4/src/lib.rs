@@ -19,7 +19,13 @@ pub fn app() -> Html {
     log!(serde_json::to_string_pretty(&my_object).unwrap());
     let my_class = "my_title";
     //let message = Some("I'm a message");
-    let message: Option<&str> = None;//None编译器推导不出类型
+    let message: Option<&str> = None; //None编译器推导不出类型
+                                      //let todos = vec![
+                                      //    html!(<li>{"A"}</li>),
+                                      //    html!(<li>{"B"}</li>),
+                                      //    html!(<li>{"C"}</li>),
+                                      //];
+    let todos = vec!["yi", "er", "san"];
     html!(
         <>
             <h1 class={my_class}>{"hello world"}</h1>
@@ -33,9 +39,17 @@ pub fn app() -> Html {
             }else{
                 <p>{"No message to see today"}</p>
             }
+            <ul>
+                //{todos}
+
+                //{todos.iter().map(|item|html!(<li>{item}</li>)).collect::<Html>()}//需要手动指定返回类型
+                {list_to_html(todos)}
+            </ul>
         </>
     )
 }
 
-
-
+fn list_to_html(items: Vec<&str>) -> Vec<Html> {
+    //已经标注返回值collect会自动推导类型
+    items.iter().map(|item| html!(<li>{item}</li>)).collect()
+}
